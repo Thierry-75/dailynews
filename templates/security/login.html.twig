@@ -5,6 +5,7 @@
 
 {% block importmap %}
 	{{ parent() }}
+	{{ importmap('checklogin') }}
 
 {% endblock %}
 {% block body %}
@@ -52,7 +53,7 @@
 
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-				<button type="submit" class="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-cyan-600 hover:bg-cyan-800 focus:outline-none">Connection</button>
+				<button type="submit" id="inputSubmit" class="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-cyan-600 hover:bg-cyan-800 focus:outline-none">Connection</button>
 				<p class="text-sm my-5 font-light text-slate-900 dark:text-gray-400 text-right">
 					Mot de passe oublié ?
 					<a href="#" class="font-medium text-sky-600 hover:underline dark:text-cyan-600">Ici</a>

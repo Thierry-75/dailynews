@@ -25,4 +25,8 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'checklogin'=>[
+        'path'=>'./assets/js/login.js',
+        'entrypoint'=> true,
+    ],
 ];
