@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connection
+{% endblock %}
+
+{% block importmap %}
+	{{ parent() }}
+
+{% endblock %}
+{% block body %}
+	<div class="bg-zinc-100 dark:bg-gray-800 h-screen overflow-hidden flex items-center justify-center">
+		<div class="bg-white lg:w-4/12 md:7/12 w-8/12 shadow-3xl rounded-xl">
+			<div class="bg-cyan-600 shadow shadow-gray-200 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
+				<svg width="24" height="24" viewbox="0 0 24 24" fill="#FFF">
+					<path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
+				</svg>
+			</div>
+
+			<form class="p-10 md:p-24" id="form_login" method='post'>
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				{% if app.user %}
+					<div class="mb-3">
+						You are logged in as
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %}
+				<div>
+					<p class="my-4 text-center text-xs" id="message_form_inscription"></p>
+				</div>
+				<div class="relative flex items-center">
+					<input name="email" value="{{ last_username }}" type="email" id="inputEmail" required class="my-5 shadow-inner bg-gray-100 rounded-lg placeholder-black text-sm p-4 md:p-2 block mt-1 w-full" placeholder="Adresse courriel"/>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-4 h-4 absolute right-4" viewbox="0 0 24 24">
+						<circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+						<path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
+					</svg>
+					<div class="text-sm text-red-700"></div>
+				</div>
+
+				<div>
+					<div class="relative flex items-center">
+						<input name="password" type="password" id="inputPassword" required class="my-5 shadow-inner bg-gray-100 rounded-lg placeholder-black text-sm p-4 md:p-2 block mt-1 w-full" placeholder="Mot de passe"/>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-4 h-4 absolute right-4 cursor-pointer" viewbox="0 0 128 128">
+							<path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
+						</svg>
+						<div class="text-sm text-red-700"></div>
+					</div>
+				</div>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+				<button type="submit" class="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-cyan-600 hover:bg-cyan-800 focus:outline-none">Connection</button>
+				<p class="text-sm my-5 font-light text-slate-900 dark:text-gray-400 text-right">
+					Mot de passe oublié ?
+					<a href="#" class="font-medium text-sky-600 hover:underline dark:text-cyan-600">Ici</a>
+				</p>
+			</form>
+		</div>
+	</div>
+{% endblock %}
