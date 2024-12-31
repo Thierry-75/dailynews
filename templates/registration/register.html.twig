@@ -3,19 +3,26 @@
 {% block title %}Inscription
 {% endblock %}
 
+{% block importmap %}
+	{{ importmap('checkregister') }}
+{% endblock %}
+
 {% block body %}
 	<div class="font-[sans-serif] bg-zinc-100 max-w-4xl flex items-center mx-auto md:h-screen p-4">
 
 		<div class="grid md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-xl overflow-hidden">
 			<div class="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-cyan-900 to-cyan-700 lg:px-8 px-4 py-4">
 				<div>
-					<h4 class="text-white underline text-md font-semibold">Créer votre compte</h4>
-					<p class="text-[13px] italic text-gray-300 mt-3 leading-relaxed">Bienvenue sur la page d'inscription . Lancez-vous pour sa création !</p>
+					<h6 class="text-white text-sm font-semibold">Créer votre compte</h6>
+					<p class="text-[12px] italic text-gray-300 mt-2 leading-relaxed">Bienvenue sur la page d'inscription . Lancez-vous pour sa création...</p>
+					<ul>
+						<li id="allowEmail" class="text-[12px] italic mt-2 ml-5 leading-relaxed"></li>
+						<li id="allowPassword" class="text-[12px] italic mt-2 ml-5 leading-relaxed">Mot de passe OK !</li>
+					</ul>
 				</div>
 				<div>
-					<h6 class="text-white underline text-md font-semibold">Enregistrement sécurisé</h6>
-                    <h6 class="text-white text-xs font-semibold">Suivez les instructions :</h6>
-					<p id="message" class="text-[13px] italic text-yellow-300 mt-3 leading-relaxed">Indiquez votre adresse courriel</p>
+					<h6 class="text-white text-sm font-semibold">Enregistrement sécurisé</h6>
+					<p id="message" class="text-[12px] italic text-gray-300 mt-2 leading-relaxed"></p>
 				</div>
 			</div>
 			{{
@@ -27,7 +34,6 @@
             }
           })
         }}
-			<!--<form class="bg-white md:col-span-2 w-full py-6 px-6 sm:px-16">-->
 			<div class="mb-6">
 				<h3 class=" text-2xl font-bold text-center text-cyan-600">Inscription</h3>
 			</div>

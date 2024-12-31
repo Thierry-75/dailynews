@@ -29,4 +29,8 @@ return [
         'path'=>'./assets/js/login.js',
         'entrypoint'=> true,
     ],
+    'checkregister'=>[
+        'path'=>'./assets/js/register.js',
+        'entrypoint'=> true,
+    ],
 ];

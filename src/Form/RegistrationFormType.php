@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email',EmailType::class,['attr'=>['class'=>'my-5 shadow-inner bg-gray-100 rounded-lg placeholder-black text-sm p-4 md:p-2 block mt-1 w-full',
-            'placeholder'=>'Adresse courriel','autofocus'=>true,'required'=>true],
+            'placeholder'=>'Adresse courriel','autofocus'=>false,'required'=>true],
             'constraints' => [
                 new Sequentially([
                     new NotBlank(message: ""),
@@ -56,12 +56,12 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 
+                    'class' => 'w-4 h-4 border border-gray-50 shadow-inner rounded-lg bg-gray-100 focus:ring-3 focus:ring-primary-300 
             dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800',
 
                 ],
-                'label' => '  Accepter les conditions générales',
-                'label_attr' => ['class' => 'font-light text-gray-800 ml-3 dark:text-gray-300 text-xs', 'id' => 'agreeSmall'],
+                'label' => ' Accepter les conditions générales',
+                'label_attr' => ['class' => 'font-light text-gray-800 ml-4 dark:text-gray-300 text-xs', 'id' => 'agreeSmall'],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
