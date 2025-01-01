@@ -17,12 +17,21 @@
 					<p class="text-[12px] italic text-gray-300 mt-2 leading-relaxed">Bienvenue sur la page d'inscription . Lancez-vous pour sa création...</p>
 					<ul>
 						<li id="allowEmail" class="text-[12px] italic mt-2 ml-5 leading-relaxed"></li>
-						<li id="allowPassword" class="text-[12px] italic mt-2 ml-5 leading-relaxed">Mot de passe OK !</li>
+						<li id="allowPassword" class="text-[12px] italic mt-2 ml-5 leading-relaxed"></li>
 					</ul>
 				</div>
 				<div>
 					<h6 class="text-white text-sm font-semibold">Enregistrement sécurisé</h6>
 					<p id="message" class="text-[12px] italic text-gray-300 mt-2 leading-relaxed"></p>
+					<div class="ml-4">
+						<ul id='password_criteria'>
+						<li id="password_length_criteria" data-password-criteria >12 caractères au total</li>
+						<li id="password_special_character_criteria" data-password-criteria >1 caractère spécial</li>
+						<li id="password_uppercase_criteria" data-password-criteria >1 lettre majuscule</li>
+						<li id="password_number_criteria" data-password-criteria >1 chiffre au moins</li>
+						<li id="password_lowercase_criteria" data-password-criteria >1 lettre minuscule</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			{{

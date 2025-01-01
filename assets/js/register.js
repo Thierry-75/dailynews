@@ -1,37 +1,98 @@
 window.onload = () => {
-let registration_form = document.querySelector("#registration_form");
+const registration_form = document.body.querySelector("#registration_form");
 if (registration_form) {
-  let allowEmail = document.querySelector('#allowEmail');
-  let allowPassword = document.querySelector('#allowPassword');
-  let message = document.querySelector('#message');
+  const allowEmail = document.body.querySelector('#allowEmail');
+  const allowPassword = document.body.querySelector('#allowPassword');
+  const message = document.body.querySelector('#message');
   let information = 'Suivez les instructions ...';
+  const password_criteria = document.body.querySelector('#password_criteria');
   info(message,information);
   yellowFont(message);
-  let registration_form_email = registration_form.querySelector(
+  const registration_form_email = registration_form.querySelector(
     "#registration_form_email"
   );
   registration_form_email.addEventListener("focus", function () {
-    information = "Indiquez votre adresse courriel";
-    focusEmail(this,message,information,allowEmail);
+    information = "Indiquez votre adresse courriel...";
+    focusEmail(this,message,information,allowEmail,password_criteria);
   });
   registration_form_email.addEventListener('change',function(){
     changeEmail(this,message,allowEmail);
   });
+
+  const registration_form_plainPassword =registration_form.querySelector('#registration_form_plainPassword');  // field input password
+  const password_length_criteria = document.body.querySelector('#password_length_criteria');
+  const password_special_character_criteria = document.body.querySelector('#password_special_character_criteria');
+  const password_uppercase_criteria = document.body.querySelector('#password_uppercase_criteria');
+  const password_number_criteria = document.body.querySelector('#password_number_criteria');
+  const password_lowercase_criteria = document.body.querySelector('#password_lowercase_criteria');
+  const all_password_criteria = document.body.querySelectorAll('li[data-password-criteria]');
+
+  registration_form_plainPassword.addEventListener('focus',function({currentTarget}){
+    this.value = "";
+   
+    const password = currentTarget.value;
+
+    password_length_criteria.textContent = `12 caractères au total (${password.length}) `;
+
+    if(password.length === 0){
+      all_password_criteria.forEach(li => li.className = "");
+      password_length_criteria.textContent = "12 caractères au total";
+    }
+    information = 'Indiquez votre mot de passe';
+    focusPassword(this,message,information,allowPassword,password_criteria);
+    clearBorder(this);
+  });
+  document.body.querySelector('#registration_form_plainPassword').addEventListener('input',({currentTarget}) => {
+      const password = currentTarget.value;
+
+      password_length_criteria.textContent = `12 caractères au total (${password.length}) `;
+
+      if(password.length === 0){
+        all_password_criteria.forEach(li => li.className = "");
+        password_length_criteria.textContent = "12 caractères au total";
+        return;
+      }
+
+      password_length_criteria.className = `password-criteria-${password.length === 12}`;
+      password_special_character_criteria.className = `password-criteria-${(/[ !"#$%&'()*+,-.\/:;<=>?@\]^_`{|}~]/).test(password)}`;
+      password_uppercase_criteria.className = `password-criteria-${(/[A-Z]/).test(password)}`;
+      password_number_criteria.className = `password-criteria-${(/[0-9]/).test(password)}`;
+      password_lowercase_criteria.className = `password-criteria-${(/[a-zà-ú]/).test(password)}`;
+      });
+    registration_form_plainPassword.addEventListener('blur',function(){
+   
+      blurPassword(password_criteria);
+      var slogan="";
+      info(message,slogan);
+        for(var i =0; i < all_password_criteria.length; i++)
+        {
+            if(all_password_criteria[i].classList.contains('password-criteria-true')){
+              successBorder(this);     
+            }
+            else if(all_password_criteria[i].classList.contains('password-criteria-false')){
+              var loto ="Mot de passe incorrect !";
+              redAllow(allowPassword,loto); 
+              alertBorder(this); 
+              return;
+            }
+        }
+        var mention ="Mot de passe OK !";
+        greenAllow(allowPassword,mention);
+    });  
+ 
 }
 }
 /*------traitement---*/
-const focusEmail = function (champ,screen,slogan,allowed) {
+
+const focusEmail = function (champ,screen,slogan,allowed,structure_password) {
   champ.value = "";
   clearBorder(champ);
   info(screen,slogan);
   yellowFont(screen);
   clearAllowed(allowed);
-
+  structure_password.style.display='none';
 };
 
-const clearAllowed = function(champ){
-    champ.style.display="none";
-}
 
 const changeEmail = function (champ,screen,allowed){
   let emailRegexp = new RegExp(
@@ -51,10 +112,27 @@ const changeEmail = function (champ,screen,allowed){
   }
 }
 
+const focusPassword = function (champ,screen,slogan,allowed,structure_password) {
+  champ.value = "";
+  clearBorder(champ);
+  info(screen,slogan);
+  yellowFont(screen);
+  clearAllowed(allowed);
+  structure_password.style.display="block";
+};
+
+const blurPassword = function(structure_password){
+  structure_password.style.display="none";
+}
+
 
 /*-----DOM------*/
 const info = function(screen,slogan){
     screen.innerHTML = slogan;
+}
+
+const clearAllowed = function(champ){
+  champ.style.display="none";
 }
 
 const greenAllow = function(champ,slogan){
@@ -79,11 +157,11 @@ const fontRedAllow = function(champ){
   champ.classList.add('text-red-300');
 }
 
-
 const yellowFont = function(champ){
   champ.classList.remove("text-gray-300","text-red-200");
   champ.classList.add("text-yellow-400");
 }
+
 const redFont = function(champ){
   champ.classList.remove("text-gray-300","text-yellow-400");
   champ.classList.add("text-red-300");
@@ -94,10 +172,12 @@ const clearBorder = function (champ) {
   champ.classList.remove("border-solid", "border-2", "border-red-600");
   champ.classList.add("border-none");
 };
+
 const alertBorder = function (champ) {
   champ.classList.remove("border-none");
   champ.classList.add("border-solid", "border-2", "border-red-600");
 };
+
 const successBorder = function (champ) {
   champ.classList.remove( "border-none"); 
   champ.classList.add("border-solid", "border-2", "border-green-600");
