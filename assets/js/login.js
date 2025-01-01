@@ -1,3 +1,4 @@
+window.onload = () => {
 let form_login = document.querySelector("#form_login");
 if (form_login) {
   let inputEmail = form_login.querySelector("#inputEmail");
@@ -41,7 +42,7 @@ if (form_login) {
     }
  });
 }
-
+}
 /*------traitement---*/
 const clearEmail = function (champ) {
   champ.value = "";

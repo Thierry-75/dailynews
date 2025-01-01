@@ -3,6 +3,7 @@ const registration_form = document.body.querySelector("#registration_form");
 if (registration_form) {
   const allowEmail = document.body.querySelector('#allowEmail');
   const allowPassword = document.body.querySelector('#allowPassword');
+  const allowAgreeTerms = document.body.querySelector('#allowAgreeTerms');
   const message = document.body.querySelector('#message');
   let information = 'Suivez les instructions ...';
   const password_criteria = document.body.querySelector('#password_criteria');
@@ -60,25 +61,45 @@ if (registration_form) {
       password_lowercase_criteria.className = `password-criteria-${(/[a-zà-ú]/).test(password)}`;
       });
     registration_form_plainPassword.addEventListener('blur',function(){
-   
-      blurPassword(password_criteria);
-      var slogan="";
-      info(message,slogan);
         for(var i =0; i < all_password_criteria.length; i++)
         {
+          //console.log(all_password_criteria[i].classList);
             if(all_password_criteria[i].classList.contains('password-criteria-true')){
+              message.innerHTML="";
               successBorder(this);     
+              blurPassword(password_criteria);
+              var mention ="Mot de passe OK !";
+              greenAllow(allowPassword,mention);
+              return;
             }
             else if(all_password_criteria[i].classList.contains('password-criteria-false')){
-              var loto ="Mot de passe incorrect !";
-              redAllow(allowPassword,loto); 
+              var mention ="Mot de passe incorrect !";
+              redAllow(allowPassword,mention); 
               alertBorder(this); 
               return;
             }
         }
-        var mention ="Mot de passe OK !";
-        greenAllow(allowPassword,mention);
+      
     });  
+    const registration_form_agreeTerms = document.body.querySelector('#registration_form_agreeTerms');
+    const agreeSmall = document.body.querySelector('#agreeSmall');
+    registration_form_agreeTerms.addEventListener('focus',function(){
+      if(allowAgreeTerms.textContent !=""){
+        var information = "";
+        info(message,information);
+        return;
+      }
+      information = "Acceptez les conditions pour continuer...";
+      info(message,information);
+      this.style.outline='none';
+      agreeSmall.classList.remove('font-semibold');
+    });
+    registration_form_agreeTerms.addEventListener('input',function(){
+      agreeTermsControl(this,agreeSmall);
+    });
+    registration_form_agreeTerms.addEventListener('blur',function(){
+
+    });
  
 }
 }
@@ -123,6 +144,27 @@ const focusPassword = function (champ,screen,slogan,allowed,structure_password) 
 
 const blurPassword = function(structure_password){
   structure_password.style.display="none";
+}
+
+const agreeTermsControl = function(champ,label){
+  if(champ.checked){
+    var information = "";
+    info(message,information);
+    var mention ="Conditions générales acceptées  OK!";
+    greenAllow(allowAgreeTerms,mention);
+    champ.style.outline='2px solid lightgreen';
+    label.classList.remove('font-semibold');
+ 
+  }
+  else if(!champ.checked){
+    var information = "Acceptez les conditions pour continuer...";
+    info(message,information);
+    var mention ="";
+    redAllow(allowAgreeTerms,mention);
+    champ.style.outline='2px solid red';
+    label.classList.add('font-semibold');
+    
+  }
 }
 
 
