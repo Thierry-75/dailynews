@@ -93,6 +93,7 @@ if (registration_form) {
       info(message,information);
       this.style.outline='none';
       agreeSmall.classList.remove('font-semibold');
+      blurPassword(password_criteria);
     });
     registration_form_agreeTerms.addEventListener('input',function(){
       agreeTermsControl(this,agreeSmall);
@@ -100,6 +101,7 @@ if (registration_form) {
     registration_form_agreeTerms.addEventListener('blur',function(){
 
     });
+ /*-------submit--------*/
  
 }
 }
@@ -167,8 +169,6 @@ const agreeTermsControl = function(champ,label){
   }
 }
 
-
-/*-----DOM------*/
 const info = function(screen,slogan){
     screen.innerHTML = slogan;
 }
