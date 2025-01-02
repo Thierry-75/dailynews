@@ -40,6 +40,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
+    #[ORM\Column]
+    private ?bool $isCompleted = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -143,6 +149,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isCompleted(): ?bool
+    {
+        return $this->isCompleted;
+    }
+
+    public function setCompleted(bool $isCompleted): static
+    {
+        $this->isCompleted = $isCompleted;
 
         return $this;
     }

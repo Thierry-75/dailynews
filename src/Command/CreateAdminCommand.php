@@ -7,10 +7,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'app:create-administrator',description: 'Creation compte Adminsitrateur')]
 class CreateAdminCommand extends Command
 {
     private EntityManagerInterface $em;
@@ -37,7 +39,7 @@ class CreateAdminCommand extends Command
         }
         $plainpassword = $input->getArgument('password');
         if(!$plainpassword){
-            $question = new Question('Quel est votre mot de passe ? : ');
+            $question = new Question('Quel est votre mot de passe (12 caractères) ? : ');
             $plainPassword = $helper->ask($input,$output,$question);
         }
 

@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         for($usr = 0; $usr < 4; $usr++ ){
             $user = new User();
             $user->setEmail($faker->email())
-                ->setPassword($this->passwordEncoder->hashPassword($user,'ArethiA75!'))
+                ->setPassword($this->passwordEncoder->hashPassword($user,'ArethiA1975!'))
                 ->setRoles(mt_rand(0,1) ===1 ? ['ROLE_USER']: ['ROLE_USER','ROLE_REDACTOR'])
                 ->setCreatedAt(new \DateTimeImmutable());
             $manager->persist($user);

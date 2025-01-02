@@ -29,7 +29,7 @@ class RegistrationFormType extends AbstractType
                 new Sequentially([
                     new NotBlank(message: ""),
                     new Length(['max' => 180, 'maxMessage' => '']),
-                    new Email(message: '')
+                    new Email(message: 'L\'adresse courriel {{ value }} est incorrecte.',)
                 ])
             ]
             ])
@@ -42,14 +42,14 @@ class RegistrationFormType extends AbstractType
                     new Sequentially([
                         new NotBlank(['message' => '']),
                         new Length([
-                            'min' => 10,
+                            'min' => 12,
                             'max' => 12,
                             'minMessage' => '',
                             'maxMessage' => ''
                         ]),
                         new Regex(
-                            pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{10,12}$/i',
-                            htmlPattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{10,12}$'
+                            pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{12,12}$/i',
+                            htmlPattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{12,12}$'
                         )
                     ])
                 ],
