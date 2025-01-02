@@ -44,6 +44,9 @@ window.onload = () => {
       information = "Indiquez votre adresse courriel...";
       focusEmail(this, message, information, allowEmail, password_criteria);
       registration_form_agreeTerms.style.outline = "none";
+      if(registration_form_plainPassword.value==''){
+      clearBorder(registration_form_plainPassword);
+      }
     });
     registration_form_email.addEventListener("change", function () {
       changeEmail(this, message, allowEmail);
@@ -71,6 +74,9 @@ window.onload = () => {
           password_criteria
         );
         clearBorder(this);
+        if(registration_form_email.value==''){
+        clearBorder(registration_form_email);
+        }
       }
     );
     document.body
