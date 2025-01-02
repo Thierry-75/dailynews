@@ -16,6 +16,7 @@ if (registration_form) {
   const message = document.body.querySelector('#message');
   let information = 'Suivez les instructions ...';
   const password_criteria = document.body.querySelector('#password_criteria');
+  const registration_form_submit = document.body.querySelector('#registration_form_email');
   info(message,information);
   yellowFont(message);
   const registration_form_email = registration_form.querySelector(
