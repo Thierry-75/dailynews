@@ -97,6 +97,7 @@ if (registration_form) {
     });
     registration_form_agreeTerms.addEventListener('input',function(){
       agreeTermsControl(this,agreeSmall);
+      blurPassword(password_criteria);
     });
     registration_form_agreeTerms.addEventListener('blur',function(){
 
@@ -152,7 +153,7 @@ const agreeTermsControl = function(champ,label){
   if(champ.checked){
     var information = "";
     info(message,information);
-    var mention ="Conditions générales acceptées  OK!";
+    var mention ="Conditions générales acceptées  OK !";
     greenAllow(allowAgreeTerms,mention);
     champ.style.outline='2px solid lightgreen';
     label.classList.remove('font-semibold');
