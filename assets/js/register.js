@@ -4,6 +4,15 @@ if (registration_form) {
   const allowEmail = document.body.querySelector('#allowEmail');
   const allowPassword = document.body.querySelector('#allowPassword');
   const allowAgreeTerms = document.body.querySelector('#allowAgreeTerms');
+  const registration_form_plainPassword =registration_form.querySelector('#registration_form_plainPassword');  // field input password
+  const password_length_criteria = document.body.querySelector('#password_length_criteria');
+  const password_special_character_criteria = document.body.querySelector('#password_special_character_criteria');
+  const password_uppercase_criteria = document.body.querySelector('#password_uppercase_criteria');
+  const password_number_criteria = document.body.querySelector('#password_number_criteria');
+  const password_lowercase_criteria = document.body.querySelector('#password_lowercase_criteria');
+  const all_password_criteria = document.body.querySelectorAll('li[data-password-criteria]');
+  const registration_form_agreeTerms = document.body.querySelector('#registration_form_agreeTerms');
+  const agreeSmall = document.body.querySelector('#agreeSmall');
   const message = document.body.querySelector('#message');
   let information = 'Suivez les instructions ...';
   const password_criteria = document.body.querySelector('#password_criteria');
@@ -15,22 +24,17 @@ if (registration_form) {
   registration_form_email.addEventListener("focus", function () {
     information = "Indiquez votre adresse courriel...";
     focusEmail(this,message,information,allowEmail,password_criteria);
+    registration_form_agreeTerms.style.outline='none';
   });
   registration_form_email.addEventListener('change',function(){
     changeEmail(this,message,allowEmail);
   });
 
-  const registration_form_plainPassword =registration_form.querySelector('#registration_form_plainPassword');  // field input password
-  const password_length_criteria = document.body.querySelector('#password_length_criteria');
-  const password_special_character_criteria = document.body.querySelector('#password_special_character_criteria');
-  const password_uppercase_criteria = document.body.querySelector('#password_uppercase_criteria');
-  const password_number_criteria = document.body.querySelector('#password_number_criteria');
-  const password_lowercase_criteria = document.body.querySelector('#password_lowercase_criteria');
-  const all_password_criteria = document.body.querySelectorAll('li[data-password-criteria]');
+
 
   registration_form_plainPassword.addEventListener('focus',function({currentTarget}){
     this.value = "";
-   
+    registration_form_agreeTerms.style.outline='none';
     const password = currentTarget.value;
 
     password_length_criteria.textContent = `12 caractères au total (${password.length}) `;
@@ -81,8 +85,7 @@ if (registration_form) {
         }
       
     });  
-    const registration_form_agreeTerms = document.body.querySelector('#registration_form_agreeTerms');
-    const agreeSmall = document.body.querySelector('#agreeSmall');
+
     registration_form_agreeTerms.addEventListener('focus',function(){
       if(allowAgreeTerms.textContent !=""){
         var information = "";
