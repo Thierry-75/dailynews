@@ -6,7 +6,7 @@
 </p>
 <p>
   <a href="{{ absolute_url(path('check_user', { token:token })) }}">
-    Activation
+    {{ absolute_url(path('check_user', { token:token })) }}
   </a>
 </p>
-<p>Ce lien expirera dans 1 heure</p>
+<p>Ce lien expirera dans 3 heures</p>

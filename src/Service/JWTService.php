@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 
 namespace App\Service;
 
@@ -6,8 +7,9 @@ namespace App\Service;
 
 class JWTService 
 {
+
     /**
-     * create token
+     * generation jeton
      *
      * @param array $header
      * @param array $payload
@@ -15,35 +17,38 @@ class JWTService
      * @param integer $validity
      * @return string
      */
-    public function generate(array $header, array $payload, string $secret, int $validity = 3600): string
+    public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
     {
-        //calcul ecart date debut et date fin
+        // creation ecart date debut, date fin
         if($validity > 0){
-            $maintenant = new \DateTimeImmutable();
-            $expire = $maintenant->getTimestamp() + $validity;
+            $now = new \DateTimeImmutable();
+            $exp = $now->getTimestamp() + $validity;
 
-            $payload['iat'] = $maintenant->getTimestamp();
-            $payload['exp'] = $expire;
-
+            $payload['iat'] = $now->getTimestamp();
+            $payload['exp'] = $exp;
         }
-        //encode base 64
+
+ 
+
+        // encodage base 64
         $base64Header = base64_encode(json_encode($header));
-        $base64Payload = base64_encode(json_encode($payload));
-        //nettoyage
+        $base64PayLoad = base64_encode(json_encode($payload));
+        // nettoyage
         $base64Header = str_replace(['+', '/', '='], ['-', '_', ''], $base64Header );
-        $base64Payload = str_replace(['+', '/', '='], ['-', '_', ''], $base64Payload );
-        // generation signature
+        $base64PayLoad = str_replace(['+', '/', '='], ['-', '_', ''], $base64PayLoad );
+        // generer signature
         $secret = base64_encode($secret);
-        $signature = hash_hmac('sha256',$base64Header . '.' . $base64Payload,$secret,true);
+
+        $signature = hash_hmac('sha256',$base64Header . '.' . $base64PayLoad, $secret, true);
         $base64Signature = base64_encode($signature);
         $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], $base64Signature);
-        // creation jeton
-        $jwt = $base64Header . '.' . $base64Payload . '.' . $base64Signature;
+        // token creation
+        $jwt = $base64Header . '.' . $base64PayLoad . '.' . $base64Signature;
         return $jwt;
     }
 
     /**
-     * integrity token function
+     * validitation jeton
      *
      * @param string $token
      * @return boolean
@@ -54,34 +59,39 @@ class JWTService
     }
 
     /**
-     * extract header function
+     * getter header
      *
      * @param string $token
      * @return array
      */
     public function getHeader(string $token): array
     {
-        // chucky on progress...
-        $tableau = explode('.', $token);
-        // decode header
-        $header = json_decode(base64_decode($tableau[0],true));
+        // decoupe token
+        $array = explode('.', $token);
+        // decodage token_header
+        $header = json_decode(base64_decode($array[0]),true);
+
         return $header;
     }
+
     /**
-     * extract payload function
+     * getter payload
      *
      * @param string $token
      * @return array
      */
     public function getPayload(string $token): array
     {
-        // chucky on progress again.... :)
-        $tableau = explode('.',$token);
-        $payload = json_decode(base64_decode($tableau[1],true));
+        // decoupe token
+        $array = explode('.',$token);
+        // decodage token_payload
+        $payload = json_decode(base64_decode($array[1]),true);
+
         return $payload;
     }
+
     /**
-     * check interval time function
+     * controle de ma validité
      *
      * @param string $token
      * @return boolean
@@ -89,22 +99,18 @@ class JWTService
     public function isExpired(string $token): bool
     {
         $payload = $this->getPayload($token);
-        $maintenant = new \DateTimeImmutable();
-        return $payload['exp'] < $maintenant->getTimestamp();
+        $now = new \DateTimeImmutable();
+        return $payload['exp'] < $now->getTimestamp();
     }
 
-    /**
-     * control token function
-     *
-     * @param string $token
-     * @param string $secret
-     * @return boolean
-     */
-    public function check(string $token,string $secret): bool
+    public function check(string $token, string $secret): bool
     {
         $header = $this->getHeader($token);
         $payload = $this->getPayload($token);
-        $checkToken = $this->generate($header,$payload,$secret,0);
-        return $token === $checkToken;
+
+        $verifToken = $this->generate($header, $payload, $secret, 0);
+        return $token === $verifToken;
     }
+
+
 }

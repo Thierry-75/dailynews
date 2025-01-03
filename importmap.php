@@ -33,4 +33,8 @@ return [
         'path'=>'./assets/js/register.js',
         'entrypoint'=> true,
     ],
+    'flash'=>[
+        'path'=>'./assets/js/alert.js',
+        'entrypoint'=> true,
+    ],
 ];
